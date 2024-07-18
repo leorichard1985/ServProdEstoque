@@ -13,5 +13,7 @@ public interface ProdEstoqueService {
 	ProdEstoqueRecords CriarProduto(ProdEstoqueRecords objCriarProduto);
 
 	ProdEstoqueRecords AtualizarProduto(Integer idProduto, ProdEstoqueRecords objAtualizarProduto);
+	
+	void RemoverEstoque(Integer idProduto, Integer quantidade);
 
 }

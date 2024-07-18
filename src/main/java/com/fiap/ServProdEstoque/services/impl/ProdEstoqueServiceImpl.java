@@ -83,7 +83,7 @@ public class ProdEstoqueServiceImpl implements ProdEstoqueService {
 
 			List<ProdEstoqueRecords> lstProdEstoque = new ArrayList<>();
 
-			for (int i = 0; i < lstJpa.size() - 1; i++) {
+			for (int i = 0; i <= lstJpa.size() - 1; i++) {
 
 				ProdEstoqueRecords itemProdEstoque = new ProdEstoqueRecords(lstJpa.get(i).idProduto,
 						lstJpa.get(i).nomeProduto, lstJpa.get(i).qtdeDisponivel);
@@ -95,6 +95,25 @@ public class ProdEstoqueServiceImpl implements ProdEstoqueService {
 			return lstProdEstoque;
 
 		}
+	}
+	
+	@Override
+	public void RemoverEstoque(Integer idProduto, Integer quantidade) {
+		
+		Optional<ProdEstoqueJpa> optJpa = repository.findById(idProduto);
+
+		if (!optJpa.isEmpty()) {		
+			
+			if (quantidade <= optJpa.get().qtdeDisponivel && quantidade > 0){
+				
+				optJpa.get().qtdeDisponivel = optJpa.get().qtdeDisponivel - quantidade;
+				
+				ProdEstoqueJpa updateEstoqueJpa = optJpa.get();
+				
+				repository.save(updateEstoqueJpa);
+			}
+
+		} 	
 	}
 
 }
